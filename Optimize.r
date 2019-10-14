@@ -27,7 +27,7 @@ for(j in seq(1,5)) {
     solve(model)
     playerList<-get.variables(model)
     total<-get.objective(model)
-    
+    playerIndex<-numeric(numPlay)
     #decrease selected player values to diversify next selection
     for(i in seq(1,NROW(nflData))){
         if(playerList[i]==1) {    
@@ -36,7 +36,6 @@ for(j in seq(1,5)) {
         nflData[i,'Value']<-nflData[i,'Value']*.97
         }
     }
-
     return[[j]]<-nflData[playerIndex,'Player']
 }
 
