@@ -1,18 +1,22 @@
-getData <-function(excl=""){
+getData <-function(source="fanduel",excl=""){
 	#initialize variables
+	defense = "D"
+	if(source=="draftkings"){
+		defense = "DST"
+	}
 	data<-data.frame(optimal=list(1,2,3,4,5,6,7,8,9,10,11,12,13,14))
 	temp<-data.frame(optimal=list(1,2,3,4,5,6,7,8))
 	col<-c("isWR","isRB","isQB","isTE","isK","isDEF")
-	pos<-c("WR","RB","QB","TE","K","D")
+	pos<-c("WR","RB","QB","TE","K",defense)
 	positionList<-c("wr","rb","qb","te","kicker","defense")
 	header<-c("Player","Cost","Team","Pos","Opp","V1","V2","Value","isWR","isRB","isQB","isTE","isK","isDEF")
 	names(data)<-header
 	#grab data from rotogrinders for each position and store in data
 	for(position in positionList){
-		site<-paste("https://rotogrinders.com/projected-stats/nfl-",position,".csv?site=fanduel",sep="")
+		site<-paste("https://rotogrinders.com/projected-stats/nfl-",position,".csv?site=",source,sep="")
 		fpath<-paste("~/Documents/",position,".csv",sep="")
 		temp <- read.csv(site, header=FALSE)
-		write.csv(temp, file = fpath)
+		#write.csv(temp, file = fpath)
 		#temp<-temp[seq(1,NROW(temp)-1),]
 		#add extra columns to hold positional attributes
 		for(k in seq(1,6)){temp<-cbind(temp,seq(1,NROW(temp)))}

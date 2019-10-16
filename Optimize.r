@@ -2,8 +2,13 @@ library(lpSolveAPI)
 source("GetData.r")
 
 #load data and initialize parameters
+type = "draftkings"
+budget = 60000
+if(type=="draftkings"){
+    budget = 50000
+}
 nflData <- data.frame(optimal=list(1,2,3,4,5,6,7,8,9,10,11,12,13,14))
-nflData <- getData()
+nflData <- getData(source=type)
 numPlay<-9
 return<-list(1,2,3,4,5)
 playerIndex<-numeric(numPlay)
